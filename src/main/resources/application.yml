@@ -1,0 +1,32 @@
+# ServerProperties
+server:
+  port: 8080
+  servlet:
+    context-path: /community
+
+# ThymeleafProperties
+spring:
+  thymeleaf:
+    cache: false
+    # DataSourceProperties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///community?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: tangsiyu
+    type: com.alibaba.druid.pool.DruidDataSource
+
+# MybatisProperties
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.nowcoder.community.entity
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+# logger
+#logging:
+#  level:
+#    com.nowcoder.community: debug
+#  file:
+#    name: D:/java_workplace/community/community.log
