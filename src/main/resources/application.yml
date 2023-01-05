@@ -45,4 +45,5 @@ mybatis:
 #  file:
 #    name: D:/java_workplace/community/community.log
 
-
+# community
+community.path.domain: http://localhost:8080
