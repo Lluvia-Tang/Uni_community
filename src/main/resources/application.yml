@@ -15,6 +15,20 @@ spring:
     username: root
     password: tangsiyu
     type: com.alibaba.druid.pool.DruidDataSource
+  # mailproperties
+  mail:
+    host: smtp.sina.com
+    port: 465
+    username: tangsiyu99@sina.com
+    password: 2a2dee4385fbdc70
+    protocol: smtps
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.ssl.enable: true #??SSL
+
+
 
 # MybatisProperties
 mybatis:
@@ -30,3 +44,5 @@ mybatis:
 #    com.nowcoder.community: debug
 #  file:
 #    name: D:/java_workplace/community/community.log
+
+
