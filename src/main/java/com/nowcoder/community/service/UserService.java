@@ -1,6 +1,8 @@
 package com.nowcoder.community.service;
 
+import com.nowcoder.community.dao.LoginTicketMapper;
 import com.nowcoder.community.dao.UserMapper;
+import com.nowcoder.community.entity.LoginTicket;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +38,9 @@ public class UserService implements CommunityConstant {
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     public User findUserById(int id) {
         return userMapper.selectById(id);
@@ -106,4 +113,116 @@ public class UserService implements CommunityConstant {
             return ACTIVATION_FAILURE;
         }
     }
+
+    public Map<String, Object> login(String username, String password, int expiredSeconds){
+        Map<String, Object> map = new HashMap<>();
+
+        //空值处理
+        if (StringUtils.isBlank(username)){
+            map.put("usernameMsg", "账号不能为空");
+            return map;
+        }
+        if (StringUtils.isBlank(password)){
+            map.put("passwordMsg", "密码不能为空");
+            return map;
+        }
+
+        //验证账号合法性
+        User user = userMapper.selectByName(username);
+        if (user == null){
+            map.put("usernameMsg", "该账号不存在");
+            return map;
+        }
+
+        //验证状态
+        if (user.getStatus() == 0) { //没有激活
+            map.put("usernameMsg", "该账号未激活");
+            return map;
+        }
+
+        //验证密码
+        password = CommunityUtil.md5(password + user.getSalt());
+        if (user.getPassword().equals(password)){
+            map.put("passwordMsg", "密码不正确");
+            return map;
+        }
+
+        //登陆成功，生成登录凭证
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(user.getId());
+        loginTicket.setTicket(CommunityUtil.generateUUID()); //ticket为随机生成字符串
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSeconds * 1000));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+
+        map.put("ticket", loginTicket.getTicket()); //传递登录凭证
+        return map;
+    }
+
+    public void logout(String ticket){
+        loginTicketMapper.updateStatus(ticket, 1);
+    }
+
+    //获取邮箱验证码
+    public Map<String, Object> getCode(String email){
+        Map<String, Object> map = new HashMap<>();
+        //空值判断
+        if (StringUtils.isBlank(email)){
+            map.put("emailMsg","请输入邮箱！");
+            return map;
+        }
+        //验证邮箱是否正确
+        User user = userMapper.selectByEmail(email);
+        if (user == null){
+            map.put("emailMsg","该邮箱还未注册过，请注册后再使用！");
+            return map;
+        }
+
+        //验证该邮箱是否已激活
+        if (user.getStatus() == 0){
+            map.put("emailMsg","该邮箱还未激活，请到邮箱中激活后再使用！");
+            return map;
+        }
+
+        //邮箱正确的情况下，发送验证码到邮箱
+        Context context = new Context();
+        context.setVariable("email",email);
+        String code = CommunityUtil.generateUUID().substring(0,5);
+        context.setVariable("verifyCode",code);
+        String content = templateEngine.process("mail/forget", context);
+        mailClient.sendMail(email, "牛客网验证码", content);
+
+        map.put("code",code);//map中存放一份，为了之后和用户输入的验证码进行对比
+        map.put("expirationTime", LocalDateTime.now().plusMinutes(5L));//过期时间
+        return map;
+    }
+
+    //忘记密码
+    public Map<String, Object> forget(String email, String verifycode, String password){
+        Map<String, Object> map = new HashMap<>();
+
+        //空值处理
+        if (StringUtils.isBlank(email)){
+            map.put("emailMsg", "邮箱不能为空");
+            return map;
+        }
+        if (StringUtils.isBlank(verifycode)){
+            map.put("codeMsg","请输入验证码！");
+            return map;
+        }
+        if (StringUtils.isBlank(password)){
+            map.put("passwordMsg", "密码不能为空");
+            return map;
+        }
+
+        User user = userMapper.selectByEmail(email);
+
+        //加密处理密码
+        password = CommunityUtil.md5(password + user.getSalt());
+        userMapper.updatePassword(user.getId(), password);
+
+        return map;
+    }
+
+
 }
