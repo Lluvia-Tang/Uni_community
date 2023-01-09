@@ -47,3 +47,4 @@ mybatis:
 
 # community
 community.path.domain: http://localhost:8080
+community.path.upload: d:/java_workplace/data/upload
