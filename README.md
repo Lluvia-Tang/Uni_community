@@ -12,6 +12,7 @@ newcoder community项目
 - 忘记密码  --1.6
 - 显示登录信息  --1.9
 - 账号设置(上传头像，更改密码)  --1.9
+- 检查登录状态  --1.9
 
 
 ##### 开发社区首页
@@ -92,7 +93,17 @@ newcoder community项目
   - 上传头像 （之后获取user对象都从hostHolder中获得请求中持有的用户数据）
   - 获取头像
 
-
+##### 检查登录状态
+现在即使未登录，也可以根据路径进入某些功能页面，要加以处理
+- 使用拦截器
+  - 在方法前标注自定义注解
+  - 拦截所有请求，只处理带有该注解的方法
+- 自定义注解
+  - 常用的元注解
+    - @Target、@Retention、@Document、@Inherited
+  - 如何读取注解
+    - Method.getDeclaredAnnotations()
+    - Method.getAnnotation(Class<T> annotationClass)
 
 
 
