@@ -112,6 +112,7 @@ public class SensitiveFilter {
                 sb.append(REPLACEMENT);
                 //进入下个位置
                 begin = ++position;
+                tempNode = rootNode;
             }else {
                 //在检测途中,继续检查下个字符
                 position++;
