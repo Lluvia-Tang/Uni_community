@@ -15,6 +15,8 @@ newcoder community项目
 - 检查登录状态  --1.9
 - 过滤敏感词  --1.10
 - 发布帖子  --1.10
+- 帖子详情  --1.13
+- 显示评论  --1.13
 
 
 ##### 开发社区首页
@@ -128,6 +130,27 @@ newcoder community项目
   - 采用AJAX请求，实现发布帖子的功能
   - 使用编写的工具类得到JSON串
   - Controller中不返回页面时要在方法前加上@ResponseBody注解
+
+##### 帖子详情
+- DiscussPostMapper
+- DiscussPostService
+- DiscussPostController
+- index.html
+  - 在帖子标题上增加访问详情页面的链接
+- discuss-detail.html
+  - 处理静态资源的访问路径
+  - 复用index.html的header区域
+  - 显示标题、作者、发布时间、帖子正文等内容
+
+##### 显示评论
+- 数据层
+  - 根据实体查询一页评论数据
+  - 根据实体查询评论的数量
+- 业务层
+  - 处理查询评论的业务
+  - 处理查询评论数量的业务
+- 表现层
+  - 显示帖子详情数据时，同时显示该帖子所有的评论数据
 
 
 #### 问题
