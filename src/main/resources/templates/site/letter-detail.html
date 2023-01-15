@@ -64,7 +64,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-8">
-					<h6><b class="square"></b> 来自 <i class="text-success" th:utext="${target.username}">落基山脉下的闲人</i> 的私信</h6>
+					<h6>
+						<b class="square"></b> 来自
+						<i class="text-success" th:utext="${target.username}">落基山脉下的闲人</i> 的私信
+					</h6>
 				</div>
 				<div class="col-4 text-right">
 					<button type="button" class="btn btn-secondary btn-sm" onclick="back();">返回</button>
@@ -117,13 +120,15 @@
 			<!-- 私信列表 -->
 			<ul class="list-unstyled mt-4">
 				<li class="media pb-3 pt-3 mb-2" th:each="map:${letters}">
-					<a href="profile.html">
+					<a href="#">
 						<img th:src="${map.fromUser.headerUrl}" class="mr-4 rounded-circle user-header" alt="用户头像" >
 					</a>
 					<div class="toast show d-lg-block" role="alert" aria-live="assertive" aria-atomic="true">
 						<div class="toast-header">
 							<strong class="mr-auto" th:utext="${map.fromUser.username}">落基山脉下的闲人</strong>
 							<small th:text="${#dates.format(map.letter.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-25 15:49:32</small>
+							<!--删除时依赖的条件-->
+							<input type="hidden" th:value="${map.letter.id}">
 							<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>

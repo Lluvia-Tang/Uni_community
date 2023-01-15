@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,6 +47,12 @@ public class MessageService {
 
     public int readMessage(List<Integer> ids){
         return messageMapper.updateStatus(ids,1);
+    }
+
+    public int deleteMessage(int id){
+        List<Integer> ids = new ArrayList<>();
+        ids.add(id);
+        return messageMapper.updateStatus(ids, 2);
     }
 
 }
