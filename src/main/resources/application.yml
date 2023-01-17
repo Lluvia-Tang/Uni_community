@@ -27,6 +27,11 @@ spring:
       mail.smtp.starttls.enable: true
       mail.smtp.starttls.required: true
       mail.smtp.ssl.enable: true #??SSL
+  # RedisProperties
+  redis:
+    database: 11
+    host: localhost
+    port: 6379
 
 
 
@@ -48,3 +53,5 @@ mybatis:
 # community
 community.path.domain: http://localhost:8080
 community.path.upload: d:/java_workplace/data/upload
+
+
