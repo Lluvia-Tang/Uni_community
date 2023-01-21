@@ -57,4 +57,24 @@ public interface MessageMapper {
      * @return
      */
     int updateStatus(List<Integer> ids, int status);
+
+    /**
+     * 查询某一主题下的最新的一条系统通知
+     */
+    Message selectLatestNotice(int userId, String topic);
+
+    /**
+     * 查询某个主题所包含的系统通知的数量
+     */
+    int selectNoticeCount(int userId, String topic);
+
+    /**
+     * 查询未读的系统通知数量
+     */
+    int selectNoticeUnreadCount(int userId, String topic);
+
+    /**
+     * 查询某个主题所包含的通知列表
+     */
+    List<Message> selectNotices(int userId, String topic, int offset, int limit);
 }

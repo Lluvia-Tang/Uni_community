@@ -34,25 +34,28 @@ public class CommentService implements CommunityConstant {
     }
 
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public int addComment(Comment comment){
-        if (comment == null){
-            throw new IllegalArgumentException("参数不能为空");
+    public int addComment(Comment comment) {
+        if (comment == null) {
+            throw new IllegalArgumentException("参数不能为空!");
         }
 
         // 添加评论
-        comment.setContent(HtmlUtils.htmlEscape(comment.getContent())); //过滤文本中html标签
-        comment.setContent(sensitiveFilter.filter(comment.getContent())); //过滤文本中敏感词
-
+        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+        comment.setContent(sensitiveFilter.filter(comment.getContent()));
         int rows = commentMapper.insertComment(comment);
+//        System.out.println("新增：" +rows);
 
         // 更新帖子评论数量
-        if (comment.getEntityId() == ENTITY_TYPE_POST){
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
             int count = commentMapper.selectCountByEntity(comment.getEntityType(), comment.getEntityId());
             discussPostService.updateCommentCount(comment.getEntityId(), count);
+//            System.out.println("更新后数量为：" +count);
         }
 
         return rows;
     }
+
+
 
     public Comment findCommentById(int id){
         return commentMapper.selectCommentById(id);
