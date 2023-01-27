@@ -304,3 +304,6 @@ newcoder community项目
   - 但spring-boot-starter-test在2.2以上不再需要两个配置，JUnit5引入的注解是 org.junit.jupiter.api.Test 作为@Test注解。springboot测试类正常运行只需要加上 @SpringBootTest 注解即可，不需要加 @RunWith(SpringRunner.class)
 
 -  session 最好是在表现层使用（controller）
+
+- 解决 Failed to obtain JDBC Connection； nested exception is java.sql.SQLNonTransientConnectionException，重新配置项目时忽然jdbc报错
+   - 在yml配置文件中数据源的url配置地址后面加 “&allowPublicKeyRetrieval=true”
