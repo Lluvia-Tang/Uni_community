@@ -1,0 +1,158 @@
+-------------------------------------------------------------------------------
+Test set: com.nowcoder.community.MapperTests
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 7, Skipped: 0, Time elapsed: 7.294 s <<< FAILURE! - in com.nowcoder.community.MapperTests
+testSelectPosts  Time elapsed: 1.187 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\discusspost-mapper.xml]
+### The error may involve com.nowcoder.community.dao.DiscussPostMapper.selectDiscussPosts
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectPosts(MapperTests.java:76)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\discusspost-mapper.xml]
+### The error may involve com.nowcoder.community.dao.DiscussPostMapper.selectDiscussPosts
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectPosts(MapperTests.java:76)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectPosts(MapperTests.java:76)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectPosts(MapperTests.java:76)
+
+updateUser  Time elapsed: 1.018 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.updateStatus
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.updateUser(MapperTests.java:64)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.updateStatus
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.updateUser(MapperTests.java:64)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.updateUser(MapperTests.java:64)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.updateUser(MapperTests.java:64)
+
+testSelectConversation  Time elapsed: 1.02 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\message-mapper.xml]
+### The error may involve com.nowcoder.community.dao.MessageMapper.selectConversations
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectConversation(MapperTests.java:108)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\message-mapper.xml]
+### The error may involve com.nowcoder.community.dao.MessageMapper.selectConversations
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectConversation(MapperTests.java:108)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectConversation(MapperTests.java:108)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectConversation(MapperTests.java:108)
+
+testInsertUser  Time elapsed: 1.016 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.insertUser
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertUser(MapperTests.java:57)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.insertUser
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertUser(MapperTests.java:57)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertUser(MapperTests.java:57)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertUser(MapperTests.java:57)
+
+testSelectLoginTicket  Time elapsed: 1.007 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in com/nowcoder/community/dao/LoginTicketMapper.java (best guess)
+### The error may involve com.nowcoder.community.dao.LoginTicketMapper.selectByTicket
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectLoginTicket(MapperTests.java:98)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in com/nowcoder/community/dao/LoginTicketMapper.java (best guess)
+### The error may involve com.nowcoder.community.dao.LoginTicketMapper.selectByTicket
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectLoginTicket(MapperTests.java:98)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectLoginTicket(MapperTests.java:98)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectLoginTicket(MapperTests.java:98)
+
+testInsertLoginTicket  Time elapsed: 1.025 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in com/nowcoder/community/dao/LoginTicketMapper.java (best guess)
+### The error may involve com.nowcoder.community.dao.LoginTicketMapper.insertLoginTicket
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertLoginTicket(MapperTests.java:93)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in com/nowcoder/community/dao/LoginTicketMapper.java (best guess)
+### The error may involve com.nowcoder.community.dao.LoginTicketMapper.insertLoginTicket
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertLoginTicket(MapperTests.java:93)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertLoginTicket(MapperTests.java:93)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testInsertLoginTicket(MapperTests.java:93)
+
+testSelectUser  Time elapsed: 1.012 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.selectById
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectUser(MapperTests.java:37)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+### The error may exist in file [D:\java_workplace\community\target\classes\mapper\user-mapper.xml]
+### The error may involve com.nowcoder.community.dao.UserMapper.selectById
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectUser(MapperTests.java:37)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectUser(MapperTests.java:37)
+Caused by: java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+	at com.nowcoder.community.MapperTests.testSelectUser(MapperTests.java:37)
+

@@ -1,0 +1,14 @@
+com\nowcoder\community\TransactionTests.class
+com\nowcoder\community\MailTests.class
+com\nowcoder\community\LoggerTests.class
+com\nowcoder\community\MapperTests.class
+com\nowcoder\community\KafkaConsumer.class
+com\nowcoder\community\Producer.class
+com\nowcoder\community\KafkaProducer.class
+com\nowcoder\community\RedisTests.class
+com\nowcoder\community\BlockingQueueTests.class
+com\nowcoder\community\kafkaTests.class
+com\nowcoder\community\RedisTests$1.class
+com\nowcoder\community\Consumer.class
+com\nowcoder\community\SensitiveTests.class
+com\nowcoder\community\CommunityApplicationTests.class
