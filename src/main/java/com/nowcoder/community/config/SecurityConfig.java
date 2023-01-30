@@ -31,7 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
         // 授权
         http.authorizeRequests()
                 .antMatchers(
-                        // 不登录时拦截
                         "/user/setting",
                         "/user/upload",
                         "/discuss/add",
@@ -43,12 +42,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                         "/unfollow"
                 )
                 .hasAnyAuthority(
-                        // 登录后，任意权限都可以访问上述
                         AUTHORITY_USER,
                         AUTHORITY_ADMIN,
                         AUTHORITY_MODERATOR
                 )
-                .anyRequest().permitAll() // 除此外，其他请求都不用拦截
+                .antMatchers(
+                        "/discuss/top",
+                        "/discuss/wonderful"
+                )
+                .hasAnyAuthority(
+                        AUTHORITY_MODERATOR
+                )
+                .antMatchers(
+                        "/discuss/delete"
+                )
+                .hasAnyAuthority(
+                        AUTHORITY_ADMIN
+                )
+                .anyRequest().permitAll()
                 .and().csrf().disable();
 
 

@@ -164,4 +164,72 @@ public class DiscussPostController implements CommunityConstant {
 
         return "site/discuss-detail";
     }
+
+    //置顶请求、取消置顶
+    @RequestMapping(path = "/top", method = RequestMethod.POST)
+    @ResponseBody //异步请求
+    public String setTop(int id){
+        DiscussPost post = discussPostService.findDiscussPostById(id);
+        // 获取新的置顶状态 ，1为置顶，0为正常状态,1^1=0 0^1=1 使用异或实现
+        int new_type = post.getType() ^ 1;
+        discussPostService.updateType(id, new_type);
+//        discussPostService.updateType(id, 1);
+
+        //返回的结果,当前的置顶状态
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", new_type);
+
+        //触发发帖事件,把最新的帖子数据同步到elasticsearch中以便搜索到
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvnet(event);
+
+        return CommunityUtil.getJSONString(0, null, map);
+    }
+
+    //加精请求、取消加精
+    @RequestMapping(path = "/wonderful", method = RequestMethod.POST)
+    @ResponseBody //异步请求
+    public String setWonderful(int id){
+        DiscussPost post = discussPostService.findDiscussPostById(id);
+        // 1为加精，0为正常， 1^1=0, 0^1=1
+        int new_status = post.getStatus() ^ 1;
+        discussPostService.updateStatus(id, new_status);
+//        discussPostService.updateStatus(id, 1);
+
+        //返回结果
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", new_status);
+
+        //触发发帖事件,把最新的帖子数据同步到elasticsearch中以便搜索到
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvnet(event);
+
+        return CommunityUtil.getJSONString(0, null, map);
+    }
+
+    //删除请求
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    @ResponseBody //异步请求
+    public String setDelete(int id){
+        discussPostService.updateStatus(id, 2);
+
+        //触发发帖事件,把最新的帖子数据同步到elasticsearch中以便搜索到
+        Event event = new Event()
+                .setTopic(TOPIC_DELETE)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvnet(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
 }
