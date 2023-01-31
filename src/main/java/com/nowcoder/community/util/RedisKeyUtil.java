@@ -12,6 +12,9 @@ public class RedisKeyUtil {
     private static final String PREFIX_KAPTCHA = "kaptcha"; //验证码
     private static final String PREFIX_TICKET = "ticket"; //登录凭证
     private static final String PREFIX_USER = "user"; //用户信息
+    private static final String PREFIX_UV = "uv"; //统计独立访客
+    private static final String PREFIX_DAU = "dau"; //统计日活跃用户
+
 
     // 生成某个实体的赞
     // like:entity:entityType:entityId -> set(userId)
@@ -42,11 +45,34 @@ public class RedisKeyUtil {
         return PREFIX_KAPTCHA + SPLIT + owner;
     }
 
+    //登录的凭证
     public static String getTicketKey(String ticket){
         return PREFIX_TICKET + SPLIT + ticket;
     }
 
+    //用户
     public static String getUserKey(int userId){
         return PREFIX_USER +SPLIT + userId;
     }
+
+    //单日uv
+    public static String getUVKey(String date){
+        return PREFIX_UV + SPLIT + date;
+    }
+
+    //区间内uv
+    public static String getUVKey(String startDate, String endDate){
+        return PREFIX_UV + SPLIT + startDate + SPLIT + endDate;
+    }
+
+    //单日dau活跃用户
+    public static String getDAUKey(String date){
+        return PREFIX_DAU + SPLIT + date;
+    }
+
+    //区间活跃用户dau
+    public static String getDAUKey(String startDate, String endDate){
+        return PREFIX_DAU + SPLIT + startDate + SPLIT + endDate;
+    }
+
 }

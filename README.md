@@ -34,7 +34,7 @@ newcoder community项目
 - 开发社区搜索功能  --1.27
 - 权限控制  --1.29
 - 置顶、加精、删除/取消置顶、取消加精  --1.30
-
+- 网站数据统计  --1.31
 
 ##### 开发社区首页
 - 开发流程
@@ -317,6 +317,19 @@ newcoder community项目
 - 按钮显示(Security权限控制)
   - 版主可以看到“置顶”、“加精”按钮
   - 管理员可以看到“删除”按钮
+
+##### 网站数据统计
+- UV（Unique Visitor）
+  - 独立访客，需通过用户IP去重统计数据
+  - 每次访问都要进行统计(在拦截器内记录ip至redis)
+  - 使用redis高级数据类型：HyperLogLog，性能好，且存储空间小（近似的结果）
+  - 在controller显示层中统计输入日期间的uv（dataService.calculateUV(start, end)
+- DAU（Daily Active User）
+  - 日活跃用户，需通过用户ID去重统计数据
+  - 访问过一次，则认为其活跃(在拦截器内记录userid至redis)
+  - 使用redis高级数据类型：Bitmap，性能好，且可以统计精确的结果
+  - 在controller显示层中统计输入日期间的dau（dataService.calculateDAU(start, end)
+- 只有管理员可以访问/data路径下的统计功能
 
 
 

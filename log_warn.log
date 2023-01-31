@@ -1,3 +1,1 @@
-2023-01-30 11:46:09,736 WARN [http-nio-8080-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:198] Resolved [java.lang.NullPointerException]
-2023-01-30 11:46:11,543 WARN [http-nio-8080-exec-2] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:198] Resolved [java.lang.NullPointerException]
-2023-01-30 12:35:55,457 WARN [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Cannot deserialize session attribute [SPRING_SECURITY_CONTEXT] for session [128D5EEEA25A7493A66EA7D5748DC908]
+2023-01-31 11:25:23,265 WARN [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Cannot deserialize session attribute [SPRING_SECURITY_CONTEXT] for session [C0CADCC155258C48B404FEF335B09E68]
