@@ -35,6 +35,8 @@ newcoder community项目
 - 权限控制  --1.29
 - 置顶、加精、删除/取消置顶、取消加精  --1.30
 - 网站数据统计  --1.31
+- 热帖排行  --2.1
+- 生成长图  --2.1
 
 ##### 开发社区首页
 - 开发流程
@@ -331,6 +333,31 @@ newcoder community项目
   - 在controller显示层中统计输入日期间的dau（dataService.calculateDAU(start, end)
 - 只有管理员可以访问/data路径下的统计功能
 
+##### 热帖排行
+- Hacker News
+  - Score = (P-1) / (T+2) ^ G
+  - P:投票数，T:发布到现在的时间，G:系数1.5~1.8
+  - 分数与受欢迎的人数（喜好程度）成正比，与时间成反比
+- StackOverflow
+  - (log(Qviews)*4) + ((Qanswers * Qscore)/5) + sum(Ascores)
+  - Qviews:问题的浏览数量，Qanswers:问题的回答数量，Qscore:点赞数-点踩数，Ascores:回答的赞踩差
+  - ----------------------------------------------------------
+  - ((QageInHours + 1) - ((QageInHours - Qupdated)/2)) ^ 1.5
+  - QageInHours:题目发布的时间，Qupdated:更新的时间
+- Nowcoder
+  - log(精华分 + 评论数*10 + 点赞数*2 + 收藏数*2) + (发布事件 - 牛客纪元)
+- 设置定时任务（Quartz），每5分钟计算分数，实现帖子按分数排序
+  - 不是计算所有的帖子，把分数变化的帖子放入缓存中（redis），时间到了把缓存中的帖子计算
+  - 新增discusspost、点赞、评论时更新redis
+  - 在Quartz中实现更新（同时数据需要更新到搜索数据中elasticsearch）
+
+##### 生成长图
+- wkhtmltopdf
+  - 命令行
+  - wkhtmltopdf url file
+  - wkhtmltoimage url file
+- java
+  - Runtime.getRuntime().exec()
 
 
 

@@ -192,7 +192,7 @@ public class UserController implements CommunityConstant {
         page.setRows(discussPostService.findDiscussPostRows(userId));
 
         //帖子列表
-        List<DiscussPost> discussList = discussPostService.findDiscussPosts(userId, page.getOffset(), page.getLimit());
+        List<DiscussPost> discussList = discussPostService.findDiscussPosts(userId, page.getOffset(), page.getLimit(),0);
         // 设置VOList分别存储每个帖子的帖子信息和帖子被点赞数量信息
         List<Map<String, Object>> discussVOList = new ArrayList<>();
         if (discussList != null){
