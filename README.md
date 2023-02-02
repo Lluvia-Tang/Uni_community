@@ -37,6 +37,7 @@ newcoder community项目
 - 网站数据统计  --1.31
 - 热帖排行  --2.1
 - 生成长图  --2.1
+- 将文件上传云服务器  --2.2
 
 ##### 开发社区首页
 - 开发流程
@@ -358,6 +359,23 @@ newcoder community项目
   - wkhtmltoimage url file
 - java
   - Runtime.getRuntime().exec()
+- 使用程序开发分享功能（生成长图）
+  - 在application.yml中配置wk的storage和command位置
+  - 在WkConfig中配置服务启动时创建WK图片目录storage
+  - 在ShareController中利用kafka队列异步实现生成长图功能（定义Event）和获取长图功能
+  - 在EventConsumer中消费分享事件：拼出cmd ==> Runtime.getRuntime().exec(cmd);
+
+##### 将文件上传至云服务器
+- 重构、开发功能
+  - 重构头像功能，在客户端直接将头像传至七牛云
+  - 重构分享功能，在服务器将生成的图片上传至七牛云
+  - 启动定时任务（每4分钟执行一次），删除1分钟之前由分享功能所创建的临时文件
+- 客户端上传
+  - 客户端将数据提交给云服务器，并等待其相应
+  - 用户上传头像时，将表单数据提交给云服务器
+- 服务器直传
+- 应用服务器将数据直接提交给云服务器，并等待其相应
+- 分享时，服务端将自动生成的图片，直接提交给云服务器
 
 
 

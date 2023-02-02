@@ -75,6 +75,11 @@ spring:
           threadPool:
             class: org.quartz.simpl.SimpleThreadPool
             threadCount: 5
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:
 
 
 
@@ -86,6 +91,10 @@ mybatis:
   configuration:
     use-generated-keys: true
     map-underscore-to-camel-case: true
+
+# wk
+wk.image.command: D:/wkhtmltopdf/bin/wkhtmltoimage
+wk.image.storage: D:/data/wk-images
 
 # logger
 #logging:
