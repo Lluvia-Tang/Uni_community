@@ -37,9 +37,8 @@ newcoder community项目
 - 网站数据统计  --1.31
 - 热帖排行  --2.1
 - 生成长图  --2.1
-- 将文件上传云服务器  --2.2
 - 优化网站的性能  --2.2
-- 
+- 项目发布-单元测试  --2.2
 
 ##### 开发社区首页
 - 开发流程
@@ -395,6 +394,17 @@ newcoder community项目
 - 什么样的数据适合本地缓存？
   - 数据变化的频率相对较低，不用过于频繁的更新缓存
   - 使用Caffeine，缓存热门的帖子列表(优化业务方法service)
+
+##### 项目发布前需要的工作
+1. 单元测试
+   - Spring Boot Testing
+     - 依赖：spring-boot-starter-test
+     - 包括：junit、spring test、AssertJ、...
+   - Test Case 测试用例
+     - 要求：保证测试方法的独立性(随时随地都能执行)
+     - 步骤：初始化数据、执行测试代码、验证测试结果、清理测试数据
+     - 常用注解：@BeforeClass、@AfterClass、@Before、@After
+2. 项目监控
 
 
 #### 问题
