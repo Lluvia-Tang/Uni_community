@@ -182,5 +182,8 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-quartz:2.1.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.15" level="project" />
+    <orderEntry type="library" name="Maven: com.github.ben-manes.caffeine:caffeine:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.checkerframework:checker-qual:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.3.3" level="project" />
   </component>
 </module>

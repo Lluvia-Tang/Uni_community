@@ -96,6 +96,11 @@ mybatis:
 wk.image.command: D:/wkhtmltopdf/bin/wkhtmltoimage
 wk.image.storage: D:/data/wk-images
 
+# caffeine
+caffeine.posts.max-size: 15
+caffeine.posts.expire-seconds: 180
+
+
 # logger
 #logging:
 #  level:
