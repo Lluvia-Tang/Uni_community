@@ -39,6 +39,7 @@ newcoder community项目
 - 生成长图  --2.1
 - 优化网站的性能  --2.2
 - 项目发布-单元测试  --2.2
+- 项目发布-项目监控  --2.3
 
 ##### 开发社区首页
 - 开发流程
@@ -405,6 +406,12 @@ newcoder community项目
      - 步骤：初始化数据、执行测试代码、验证测试结果、清理测试数据
      - 常用注解：@BeforeClass、@AfterClass、@Before、@After
 2. 项目监控
+   - Spring Boot Actuator
+     - Endpoints: 监控应用的入口，Spring Boot内置了很多端点，也支持自定义端点(自定义一个DatabaseEndpoint.java)
+     - 监控方式: HTTP或JMX
+     - 访问路径: 例如 "/actuator/health" 返回当前服务的健康状态； "/actuator/info" 返回服务端的信息； “/actuator/beans”返回所有的bean
+     - 注意事项: （application.yml中）按需配置暴露的端点，并对所有端点进行权限控制(在SecurityConfig里面添加"/actuator/**"权限仅给管理员)
+
 
 
 #### 问题
