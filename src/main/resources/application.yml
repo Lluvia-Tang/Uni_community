@@ -1,0 +1,120 @@
+# ServerProperties
+server:
+  port: 8080
+  servlet:
+    context-path: /community
+
+# ThymeleafProperties
+spring:
+  thymeleaf:
+    cache: false
+    # DataSourceProperties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///community?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong&allowPublicKeyRetrieval=true
+    username: root
+    password: tangsiyu
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 30000
+  #    type: com.alibaba.druid.pool.DruidDataSource
+  # mailproperties
+  mail:
+    host: smtp.sina.com
+    port: 465
+    username: tangsiyu99@sina.com
+    password: 2a2dee4385fbdc70
+    protocol: smtps
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.ssl.enable: true #??SSL
+  # RedisProperties
+  redis:
+    database: 11
+    host: localhost
+    port: 6379
+  # KafkaProperties
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: community-consumer-group
+      enable-auto-commit: true
+      auto-commit-interval: 3000
+  # elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: nowcoder
+      cluster-nodes: 127.0.0.1:9300
+  # TaskExecutionProperties
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 15
+        queue-capacity: 100
+    # TaskSchedulingProperties
+    scheduling:
+      pool:
+        size: 5
+    # QuartzProperties
+  quartz:
+    job-store-type: jdbc
+    scheduler-name: communityScheduler
+    properties:
+      org:
+        quartz:
+          scheduler.instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            isClustered: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 5
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri:
+
+
+
+
+# MybatisProperties
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.nowcoder.community.entity
+  configuration:
+    use-generated-keys: true
+    map-underscore-to-camel-case: true
+
+# wk
+wk.image.command: D:/wkhtmltopdf/bin/wkhtmltoimage
+wk.image.storage: D:/data/wk-images
+
+# caffeine
+caffeine.posts.max-size: 15
+caffeine.posts.expire-seconds: 180
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        exclude: info,caches
+
+# logger
+#logging:
+#  level:
+#    com.nowcoder.community: debug
+#  file:
+#    name: D:/java_workplace/community/community.log
+
+# community
+community.path.domain: http://localhost:8080
+community.path.upload: d:/java_workplace/data/upload
