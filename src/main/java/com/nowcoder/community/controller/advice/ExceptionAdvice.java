@@ -1,4 +1,7 @@
 package com.nowcoder.community.controller.advice;
+/**
+ * 统一异常处理
+ */
 
 import com.nowcoder.community.util.CommunityUtil;
 import org.slf4j.Logger;
@@ -33,5 +36,7 @@ public class ExceptionAdvice {
             response.sendRedirect(request.getContextPath() + "/error");
         }
     }
+
+
 
 }

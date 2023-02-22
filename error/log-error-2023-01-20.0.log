@@ -1,2 +1,0 @@
-2023-01-20 20:45:21,755 ERROR [main] o.s.k.s.LoggingProducerListener [LogAccessor.java:261] Exception thrown when sending a message with key='null' and payload='你好' to topic test:
-org.apache.kafka.common.errors.TimeoutException: Topic test not present in metadata after 60000 ms.
