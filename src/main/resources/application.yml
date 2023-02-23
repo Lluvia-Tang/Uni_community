@@ -35,8 +35,26 @@ spring:
   # RedisProperties
   redis:
     database: 11
-    host: localhost
-    port: 6379
+    # single-Redis
+#    host: localhost
+#    port: 6379
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 1
+        max-active: 1000
+        max-wait: -1
+    timeout: 100000
+    # redisCluster
+    cluster:
+      nodes:
+        - 127.0.0.1:6379
+        - 127.0.0.1:6380
+        - 127.0.0.1:6381
+        - 127.0.0.1:6382
+        - 127.0.0.1:6383
+        - 127.0.0.1:6384
+
   # KafkaProperties
   kafka:
     bootstrap-servers: localhost:9092

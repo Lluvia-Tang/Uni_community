@@ -315,7 +315,7 @@ public class UserService implements CommunityConstant {
         redisTemplate.delete(redisKey);
     }
 
-    // 查询用户的权限
+    // 根据用户获得用户权限
     public Collection<? extends GrantedAuthority> getAuthorities(int userId){
         User user = this.findUserById(userId);
 
