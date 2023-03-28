@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class FollowController implements CommunityConstant {
@@ -49,7 +50,7 @@ public class FollowController implements CommunityConstant {
                 .setUserId(hostHolder.getUser().getId())
                 .setEntityType(entityType)
                 .setEntityId(entityId)
-                .setEntityUserId(entityId);
+                .setEntityUserId(entityId).setMessageId(UUID.randomUUID().toString());
 
         eventProducer.fireEvnet(event);
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/comment")
@@ -67,7 +68,7 @@ public class CommentController implements CommunityConstant {
                     .setTopic(TOPIC_PUBLISH)
                     .setUserId(comment.getUserId())
                     .setEntityType(ENTITY_TYPE_POST)
-                    .setEntityId(discussPostId);
+                    .setEntityId(discussPostId).setMessageId(UUID.randomUUID().toString());
             eventProducer.fireEvnet(event);
             //计算帖子分数
             String redisKey = RedisKeyUtil.getPostScoreKey();

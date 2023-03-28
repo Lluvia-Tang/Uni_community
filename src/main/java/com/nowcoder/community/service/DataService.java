@@ -39,7 +39,7 @@ public class DataService {
 
         Calendar calendar = Calendar.getInstance();//为了计算日期
         calendar.setTime(start);
-        while(!calendar.getTime().after(end)){
+        while(!calendar.getTime().after(end)) {
             String uvKey = RedisKeyUtil.getUVKey(df.format(calendar.getTime()));
             keyList.add(uvKey);
 
@@ -59,6 +59,7 @@ public class DataService {
         String redisKey = RedisKeyUtil.getDAUKey(df.format(new Date()));
         redisTemplate.opsForValue().setBit(redisKey, userId, true); //以userId为索引存boolean值
     }
+
 
     // 统计指定日期范围内的DAU
     public long calculateDAU(Date start, Date end){

@@ -8,11 +8,14 @@ import com.nowcoder.community.service.DiscussPostService;
 import com.nowcoder.community.service.ElasticsearchService;
 import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.util.CommunityConstant;
+import com.nowcoder.community.util.RedisKeyUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +23,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 开发事件的消费者
@@ -44,8 +48,11 @@ public class EventConsumer implements CommunityConstant {
     @Value("${wk.image.storage}")
     private String wkImageStorage;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW}) //消费多个主题
-    public void handleCommentMessage(ConsumerRecord record){
+    public void handleCommentMessage(ConsumerRecord record){ //ConsumerRecord用来接收数据
         if (record == null || record.value() == null){
             logger.error("消息的内容为空！");
             return;
@@ -54,6 +61,19 @@ public class EventConsumer implements CommunityConstant {
         Event event = JSONObject.parseObject(record.value().toString(), Event.class); //将JSON字符串转回Event对象
         if (event == null){
             logger.error("消息格式错误！");
+            return;
+        }
+
+        String messageId = event.getMessageId(); // 假设消息的ID字段为messageId
+        String messageIdSetKey = RedisKeyUtil.getMessageIdKey(event.getTopic());
+        if (StringUtils.isBlank(messageId)) {
+            logger.error("消息id为空！");
+            return;
+        }
+
+        // 检查Redis中是否已经处理过该消息
+        if (redisTemplate.opsForSet().isMember(messageIdSetKey, messageId)) {
+            logger.info("消息已经处理过，messageId: {}", messageId);
             return;
         }
 
@@ -79,6 +99,13 @@ public class EventConsumer implements CommunityConstant {
 
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message); //存入数据库
+
+        // 将messageId加入到Redis的Set中，以标记该消息已经被处理过
+        redisTemplate.opsForSet().add(messageIdSetKey, messageId);
+        logger.info("消息处理完成，messageId: {}", messageId);
+
+        // key越来越大...怎么处理？
+        redisTemplate.expire(messageIdSetKey, 2, TimeUnit.HOURS);
     }
 
     // 消费发帖事件

@@ -8,11 +8,14 @@ import java.util.Map;
  */
 public class Event {
 
-    private String topic;
+    private String topic; //主题
     private int userId; //触发事件者
-    private int entityType;
-    private int entityId;
-    private int entityUserId; //事件接受者
+    private int entityType; //触发的事件发生在哪个实体上
+    private int entityId; //实体id
+    private int entityUserId; //实体作者
+
+    private String messageId; //保存消息id，用于保证消息的幂等性
+
     private Map<String, Object> data = new HashMap<>(); //可扩展性，其他额外的数据存放至map中
 
     //改造set方法，使可以连续set不同的属性
@@ -67,6 +70,15 @@ public class Event {
 
     public Event setData(String key, Object value) {
         this.data.put(key, value);
+        return this;
+    }
+
+    public String getMessageId() {
+        return messageId;
+    }
+
+    public Event setMessageId(String messageId) {
+        this.messageId = messageId;
         return this;
     }
 }

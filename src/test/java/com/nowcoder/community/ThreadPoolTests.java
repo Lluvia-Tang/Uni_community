@@ -13,10 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 
 @RunWith(SpringRunner.class)
@@ -43,6 +40,7 @@ public class ThreadPoolTests {
     @Autowired
     private AlphaService alphaService;
 
+//    ThreadLocal threadLocal = new ThreadLocal<>();
 
     private void sleep(long m){
         try{
@@ -115,7 +113,7 @@ public class ThreadPoolTests {
     }
 
     // Spring线程池的简便使用
-    // 只需要在方法上加注解，把bean中方法做线程体
+    // 只需要在方法上加注解@Async，把bean中方法做线程体任务,用线程池来执行任务
     // 5.Spring普通线程池（简化）
     @Test
     public void testThreadPoolTaskExecutorSimple(){
@@ -127,9 +125,37 @@ public class ThreadPoolTests {
     }
 
     // 6.Spring定时任务线程池（简化）
+    // 在方法上加注解@Scheduled(initalDelay = 10000, fixedRate = 1000)
     @Test
     public void testThreadPoolTaskSchedulerSimple(){
         // 不需要主动调，只要有程序运行，execute2方法定时自动调用
         sleep(30000);
+    }
+
+    @Test
+    public void testThreadPool(){
+        ExecutorService executor = new ThreadPoolExecutor(3, 3,60L,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<>(), Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.DiscardOldestPolicy());
+
+        try{
+            for(int i = 0; i< 10; i++){
+                executor.execute(() -> {
+                    //定义任务
+                    try {
+                        System.out.println(Thread.currentThread().getName() + " 窗口，开始卖票");
+                        Thread.sleep(500);
+                        System.out.println(Thread.currentThread().getName() + " 窗口，卖票结束");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            // 完成后结束
+            executor.shutdown();
+        }
     }
 }

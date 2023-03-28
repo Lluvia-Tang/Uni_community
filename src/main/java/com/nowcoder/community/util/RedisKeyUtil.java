@@ -16,6 +16,8 @@ public class RedisKeyUtil {
     private static final String PREFIX_DAU = "dau"; //统计日活跃用户
     private static final String PREFIX_POST = "post"; //帖子
 
+    private static final String PREFIX_MESSAGE_ID = "messageid_set"; //保证消息幂等性
+
 
     // 生成某个实体的赞
     // like:entity:entityType:entityId -> set(userId)
@@ -79,6 +81,10 @@ public class RedisKeyUtil {
     //统计帖子分数
     public static String getPostScoreKey(){
         return PREFIX_POST + SPLIT + "score";
+    }
+
+    public static String getMessageIdKey(String topic){
+        return PREFIX_MESSAGE_ID + SPLIT + topic;
     }
 
 }

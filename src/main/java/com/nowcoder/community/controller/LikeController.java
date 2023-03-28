@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class LikeController implements CommunityConstant {
@@ -59,7 +60,7 @@ public class LikeController implements CommunityConstant {
                     .setEntityType(entityType)
                     .setEntityId(entityId)
                     .setEntityUserId(entityUserId)
-                    .setData("postId", postId);
+                    .setData("postId", postId).setMessageId(UUID.randomUUID().toString());
 
             eventProducer.fireEvnet(event);
         }
