@@ -2,6 +2,8 @@ package com.nowcoder.community.util;
 
 import com.alibaba.druid.support.spring.stat.annotation.Stat;
 
+import java.util.Random;
+
 public class RedisKeyUtil {
 
     private static final String SPLIT = ":"; //声明命名中一个分割的常量
@@ -24,6 +26,21 @@ public class RedisKeyUtil {
     public static String getEntityLikeKey(int entityType, int entityId){
         return PREFIX_ENTITY_LIKE + SPLIT + entityType + SPLIT + entityId;
     }
+
+    // 避免Bigkey，重构多个小set
+    private static final int SHARDNUM = 10; //分成10个小set
+    public static String getSmallEntityLikeKey(int entityType, int entityId){
+        int shardIndex = new Random().nextInt(SHARDNUM);  // 生成随机数来决定存储到哪个小 Set 中 [0,9]
+        return PREFIX_ENTITY_LIKE + SPLIT + entityId + SPLIT + entityId + SPLIT + shardIndex; //EntityType: EntityId:0
+    }
+
+    /**
+     * for (int i = 0; i < 10; i++) {
+     *     String key = entityLikeKey + ":" + i;
+     *     result.addAll(redisTemplate.opsForSet().members(key));
+     * }
+     * **/
+
 
     // 某个用户的赞
     // like:user:userId -> int
@@ -83,6 +100,7 @@ public class RedisKeyUtil {
         return PREFIX_POST + SPLIT + "score";
     }
 
+    // 消息ID，用于保持幂等性
     public static String getMessageIdKey(String topic){
         return PREFIX_MESSAGE_ID + SPLIT + topic;
     }
