@@ -10,6 +10,7 @@ import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
 import com.nowcoder.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 public class MessageController implements CommunityConstant {
@@ -31,6 +33,9 @@ public class MessageController implements CommunityConstant {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
     //私信列表
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET)
@@ -168,6 +173,104 @@ public class MessageController implements CommunityConstant {
         User user = hostHolder.getUser();
 
         // 查询评论类通知
+        CompletableFuture<Void> task_comment = CompletableFuture.supplyAsync(()->{
+            Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
+            if (message != null){
+                Map<String, Object> messageVO = new HashMap<>();
+
+                messageVO.put("message", message);
+
+                String content = HtmlUtils.htmlUnescape(message.getContent());
+                Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+
+                messageVO.put("user", userService.findUserById((Integer) data.get("userId")));
+                messageVO.put("entityType", data.get("entityType"));
+                messageVO.put("entityId", data.get("entityId"));
+                messageVO.put("postId", data.get("postId"));
+
+                int count = messageService.findNoticeCount(user.getId(), TOPIC_COMMENT);
+                messageVO.put("count", count);
+
+                int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_COMMENT);
+                messageVO.put("unread", unread);
+
+                model.addAttribute("commentNotice", messageVO);
+            }
+            return null;
+        }, threadPoolTaskExecutor);
+
+        // 查询点赞类通知
+        CompletableFuture<Void> task_like = CompletableFuture.supplyAsync(()->{
+            Message message = messageService.findLatestNotice(user.getId(), TOPIC_LIKE);
+            if (message != null){
+                Map<String, Object> messageVO = new HashMap<>();
+
+                messageVO.put("message", message);
+
+                String content = HtmlUtils.htmlUnescape(message.getContent());
+                Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+
+                messageVO.put("user", userService.findUserById((Integer) data.get("userId")));
+                messageVO.put("entityType", data.get("entityType"));
+                messageVO.put("entityId", data.get("entityId"));
+                messageVO.put("postId", data.get("postId"));
+
+                int count = messageService.findNoticeCount(user.getId(), TOPIC_LIKE);
+                messageVO.put("count", count);
+
+                int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
+                messageVO.put("unread", unread);
+
+                model.addAttribute("likeNotice", messageVO);
+            }
+            return null;
+        }, threadPoolTaskExecutor);
+
+        // 查询关注类通知
+        CompletableFuture<Void> task_follow = CompletableFuture.supplyAsync(()->{
+            Message message = messageService.findLatestNotice(user.getId(), TOPIC_FOLLOW);
+            if (message != null){
+                Map<String, Object> messageVO = new HashMap<>();
+
+                messageVO.put("message", message);
+
+                String content = HtmlUtils.htmlUnescape(message.getContent());
+                Map<String, Object> data = JSONObject.parseObject(content, HashMap.class);
+
+                messageVO.put("user", userService.findUserById((Integer) data.get("userId")));
+                messageVO.put("entityType", data.get("entityType"));
+                messageVO.put("entityId", data.get("entityId"));
+
+                int count = messageService.findNoticeCount(user.getId(), TOPIC_FOLLOW);
+                messageVO.put("count", count);
+
+                int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_FOLLOW);
+                messageVO.put("unread", unread);
+
+                model.addAttribute("followNotice", messageVO);
+            }
+            return null;
+        }, threadPoolTaskExecutor);
+
+        // 查询全部的未读消息数量
+        CompletableFuture<Void> task_letterUnreadCnt = CompletableFuture.supplyAsync(()->{
+            int letterUnreadCount = messageService.findLetterUnreadCount(user.getId(), null);
+            model.addAttribute("letterUnreadCount", letterUnreadCount);
+            return null;
+        }, threadPoolTaskExecutor);
+        CompletableFuture<Void> task_noticeUnreadCnt = CompletableFuture.supplyAsync(()->{
+            int noticeUnreadCount = messageService.findNoticeUnreadCount(user.getId(), null);
+            model.addAttribute("noticeUnreadCount", noticeUnreadCount);
+            return null;
+        }, threadPoolTaskExecutor);
+
+        CompletableFuture<Void> selectFuture = CompletableFuture.allOf(task_comment, task_like, task_follow, task_letterUnreadCnt, task_noticeUnreadCnt);
+        selectFuture.join();
+
+        return "/site/notice";
+
+        /**
+        // 查询评论类通知
         Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
         if (message != null){
             Map<String, Object> messageVO = new HashMap<>();
@@ -247,7 +350,7 @@ public class MessageController implements CommunityConstant {
         int noticeUnreadCount = messageService.findNoticeUnreadCount(user.getId(), null);
         model.addAttribute("noticeUnreadCount", noticeUnreadCount);
 
-        return "/site/notice";
+         **/
     }
 
     // 系统通知详情

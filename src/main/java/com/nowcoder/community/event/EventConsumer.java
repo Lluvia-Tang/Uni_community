@@ -9,6 +9,7 @@ import com.nowcoder.community.service.ElasticsearchService;
 import com.nowcoder.community.service.MessageService;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.RedisKeyUtil;
+import com.nowcoder.community.websocket.WebsocketService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
@@ -99,6 +100,8 @@ public class EventConsumer implements CommunityConstant {
 
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message); //存入数据库
+
+//        WebsocketService.WEBSOCKET_MAP.get()
 
         // 将messageId加入到Redis的Set中，以标记该消息已经被处理过
         redisTemplate.opsForSet().add(messageIdSetKey, messageId);

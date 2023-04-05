@@ -444,6 +444,27 @@ spring:
     - 127.0.0.1:6384
 ```
 
+##### 解决Bigkey问题
+在RedisKeyUtil中将对某个实体的赞的key拆分成多个小set的key
+
+##### 保障kafka的消息不丢失且不幂等
+- 幂等
+  - 保证消费者端的消息不被重复消费
+  - 在message对象中存入了新的字段 messageId
+  - 在消费端收到消息Event后，取出其中的messageId，存入Redis中（保证分布式正确）
+  - 如果消息重复（redis中存在后），就不再消费直接return；不重复就存入redis中
+- 不丢失
+  - 在生产端异步发送消息后在回调方法中进行异常处理
+  - .addCallback()中重写onSuccess和onFailure方法，当发送失败时，就存入队列中(que.offer(event))
+  - ```java
+    // 使用线程安全的队列保存未成功发送的消息
+    private ConcurrentLinkedQueue<Event> failedEvents = new ConcurrentLinkedQueue<>();
+     ```
+
+##### 引入线程池和CompletableFuture来通过异步查询加速业务
+- 在MessageController中通过CompletableFuture实现流水线化的并行处理
+- 通过设置的线程池执行任务，并行查询多个类型的通知消息，加快速度。
+
 
 #### 问题
 - @SpringBootTest 单元测试JUnit不同版本的使用问题
@@ -458,3 +479,5 @@ spring:
 
 - 解决 Failed to obtain JDBC Connection； nested exception is java.sql.SQLNonTransientConnectionException，重新配置项目时忽然jdbc报错
    - 在yml配置文件中数据源的url配置地址后面加 “&allowPublicKeyRetrieval=true”
+
+
