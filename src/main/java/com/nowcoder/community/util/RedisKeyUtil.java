@@ -31,7 +31,7 @@ public class RedisKeyUtil {
     private static final int SHARDNUM = 10; //分成10个小set
     public static String getSmallEntityLikeKey(int entityType, int entityId){
         int shardIndex = new Random().nextInt(SHARDNUM);  // 生成随机数来决定存储到哪个小 Set 中 [0,9]
-        return PREFIX_ENTITY_LIKE + SPLIT + entityId + SPLIT + entityId + SPLIT + shardIndex; //EntityType: EntityId:0
+        return PREFIX_ENTITY_LIKE + SPLIT + entityType + SPLIT + entityId + SPLIT + shardIndex; //EntityType: EntityId:0
     }
 
     /**
