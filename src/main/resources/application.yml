@@ -100,9 +100,6 @@ spring:
         jwt:
           jwk-set-uri:
 
-
-
-
 # MybatisProperties
 mybatis:
   mapper-locations: classpath:mapper/*.xml

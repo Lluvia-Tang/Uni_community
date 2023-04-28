@@ -26,6 +26,7 @@ public class LikeService {
 //            //没点过赞
 //            redisTemplate.opsForSet().add(entityLikeKey, userId);
 //        }
+        // 在一个连接里执行多条操作
         redisTemplate.execute(new SessionCallback() {
             @Override
             public Object execute(RedisOperations operations) throws DataAccessException {

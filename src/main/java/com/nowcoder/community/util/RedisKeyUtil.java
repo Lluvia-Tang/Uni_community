@@ -42,7 +42,7 @@ public class RedisKeyUtil {
      * **/
 
 
-    // 某个用户的赞
+    // 以用户为key，记录获赞数量（实现功能：个人信息栏中”我收到的赞“）
     // like:user:userId -> int
     public static String getUserLikeKey(int userId){
         return PREFIX_USER_LIKE + SPLIT + userId;
